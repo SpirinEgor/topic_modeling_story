@@ -18,11 +18,7 @@ class Issue:
     @no_type_check
     def from_json(data: Dict) -> "Issue":
         return Issue(
-            data["idReadable"],
-            data["created"],
-            data["summary"],
-            data["description"],
-            data["Affected versions"]
+            data["idReadable"], data["created"], data["summary"], data["description"], data["Affected versions"]
         )
 
 
