@@ -67,7 +67,6 @@ def main():
     """.strip()
     )
 
-
     random_examples = [f"{i + 1}. {dataset[randint(0, len(dataset) - 1)][0]}" for i in range(N_RANDOM_EXAMPLES)]
     st.text("\n".join(random_examples))
 
