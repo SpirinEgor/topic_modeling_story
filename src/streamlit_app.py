@@ -38,7 +38,7 @@ def retrieve_top_topics_from_version(
 ) -> List:
     version_indices = [i for i in range(len(dataset)) if version in dataset[i][1]]
     topic = predictions[version_indices].argmax(-1)
-    counts = Counter(topic)
+    counts: Counter[int] = Counter(topic)
     return counts.most_common(top_k)
 
 
