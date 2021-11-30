@@ -3,7 +3,6 @@ import string
 from dataclasses import dataclass
 from typing import List, Dict, Tuple, no_type_check
 
-from nltk.corpus import stopwords
 from torch.utils.data import Dataset
 
 
@@ -36,7 +35,6 @@ class YouTrackIssueDataset(Dataset):
         with open(input_data_path, "r") as input_file:
             for line in input_file:
                 self._issues.append(Issue.from_json(json.loads(line)))
-        self._stopwords = stopwords.words("english")
 
     def __len__(self) -> int:
         return len(self._issues)
