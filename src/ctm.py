@@ -1,3 +1,4 @@
+import pickle
 import time
 from typing import Optional
 
@@ -34,3 +35,12 @@ class ContextualizedTopicModeling:
     @property
     def ctm(self) -> ZeroShotTM:
         return self._model
+
+    def save(self, path: str):
+        with open(path, "wb") as f:
+            pickle.dump(self, f)
+
+    @staticmethod
+    def load(path: str) -> "ContextualizedTopicModeling":
+        with open(path, "rb") as f:
+            return pickle.load(f)
