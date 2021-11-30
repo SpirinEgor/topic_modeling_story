@@ -1,2 +1,2 @@
-# topic_modeling_story
+# Topic Modeling Story
 Topic modeling on YouTrack issues for PyCharm
