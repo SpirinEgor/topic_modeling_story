@@ -1,0 +1,23 @@
+name: Main
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Lint with Black
+      run: |
+        pip install black
+        black . --check -l 120
+    - name: Check types with mypy
+      run: |
+        pip install mypy
+        mypy . --ignore-missing-imports
