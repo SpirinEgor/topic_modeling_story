@@ -12,7 +12,7 @@ from plotly.graph_objs import Figure
 
 from src.dataset import YouTrackIssueDataset
 
-LDA_VIS_DATA = join("models", "vis_data.pkl")
+LDA_VIS_DATA = join("models", "lda_vis_data.pkl")
 DATA_PATH = join("data", "pycharm_issues.json")
 N_RANDOM_EXAMPLES = 10
 
@@ -96,8 +96,8 @@ def main():
     st.write(
         """
     As we can see, the model coped to detect patterns in incoming issues.
-    For example, topic X clearly dedicated to a problem with ...,
-    and topic Y is about ....
+    For example, topic 1 clearly dedicated to a problem with using docker containers,
+    and topic 66 is about remote interpreter.
     """.strip()
     )
 

@@ -1,1 +1,1 @@
-worker: python3 src/streamlit_app.py
+worker: streamlit run src/streamlit_app.py
