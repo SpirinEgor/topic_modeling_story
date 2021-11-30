@@ -33,7 +33,7 @@ class ContextualizedTopicModeling:
         self._model.fit(self._train_dataset)
 
     @property
-    def ctm(self) -> ZeroShotTM:
+    def model(self) -> ZeroShotTM:
         return self._model
 
     def save(self, path: str):

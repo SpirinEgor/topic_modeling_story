@@ -27,7 +27,7 @@ class Issue:
 
 
 class YouTrackIssueDataset(Dataset):
-    _replace_symbols = string.punctuation + "\n\t"
+    _replace_symbols = string.punctuation + "\n\t" + string.digits
     _translator = str.maketrans(_replace_symbols, " " * len(_replace_symbols))
 
     def __init__(self, input_data_path: str):
@@ -42,4 +42,5 @@ class YouTrackIssueDataset(Dataset):
     def __getitem__(self, idx: int) -> Tuple[str, List[str]]:
         issue = self._issues[idx]
         text = issue.summary + " " + issue.description
+        text = text.translate(self._translator)
         return text, issue.affected_versions
