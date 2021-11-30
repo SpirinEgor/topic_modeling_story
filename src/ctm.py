@@ -21,16 +21,16 @@ class ContextualizedTopicModeling:
         self.documents, self.raw_corpus, self.vocab = self._sp.preprocess()
         print(f"Done in {time.time() - start_time} s")
 
-        self._tp = TopicModelDataPreparation(model)
-        self._train_dataset = self._tp.fit(text_for_contextual=self.raw_corpus, text_for_bow=self.raw_corpus)
+        self.tp = TopicModelDataPreparation(model)
+        self.train_dataset = self.tp.fit(text_for_contextual=self.raw_corpus, text_for_bow=self.documents)
 
         self._model: Optional[ZeroShotTM] = None
 
     def fit(self, contextual_size: int, n_topics: int, num_epochs: int):
         self._model = ZeroShotTM(
-            bow_size=len(self._tp.vocab), contextual_size=contextual_size, n_components=n_topics, num_epochs=num_epochs
+            bow_size=len(self.tp.vocab), contextual_size=contextual_size, n_components=n_topics, num_epochs=num_epochs
         )
-        self._model.fit(self._train_dataset)
+        self._model.fit(self.train_dataset)
 
     @property
     def model(self) -> ZeroShotTM:

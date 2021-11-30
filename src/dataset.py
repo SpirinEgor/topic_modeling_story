@@ -18,11 +18,11 @@ class Issue:
     @no_type_check
     def from_json(data: Dict) -> "Issue":
         return Issue(
-            data.get("idReadable", "") or "",
-            data.get("created", 0) or 0,
-            data.get("summary", "") or "",
-            data.get("description", "") or "",
-            data.get("Affected versions", []) or [],
+            data["idReadable"],
+            data["created"],
+            data["summary"],
+            data["description"],
+            data["Affected versions"]
         )
 
 
@@ -34,7 +34,10 @@ class YouTrackIssueDataset(Dataset):
         self._issues = []
         with open(input_data_path, "r") as input_file:
             for line in input_file:
-                self._issues.append(Issue.from_json(json.loads(line)))
+                issue = Issue.from_json(json.loads(line))
+                if issue.summary is None or issue.description is None:
+                    continue
+                self._issues.append(issue)
 
     def __len__(self) -> int:
         return len(self._issues)
