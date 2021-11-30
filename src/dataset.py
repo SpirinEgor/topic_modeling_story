@@ -41,6 +41,4 @@ class YouTrackIssueDataset(Dataset):
 
     def __getitem__(self, idx: int) -> Tuple[str, List[str]]:
         issue = self._issues[idx]
-        text = issue.summary + " " + issue.description
-        text = text.translate(self._translator)
-        return text, issue.affected_versions
+        return issue.summary, issue.affected_versions
