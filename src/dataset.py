@@ -3,8 +3,6 @@ import string
 from dataclasses import dataclass
 from typing import List, Dict, Tuple, no_type_check
 
-from torch.utils.data import Dataset
-
 
 @dataclass
 class Issue:
@@ -22,7 +20,7 @@ class Issue:
         )
 
 
-class YouTrackIssueDataset(Dataset):
+class YouTrackIssueDataset:
     _replace_symbols = string.punctuation + "\n\t" + string.digits
     _translator = str.maketrans(_replace_symbols, " " * len(_replace_symbols))
 
