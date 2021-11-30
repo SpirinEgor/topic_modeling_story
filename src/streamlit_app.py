@@ -10,8 +10,6 @@ import streamlit as st
 import streamlit.components.v1 as components
 from matplotlib import pyplot as plt
 from matplotlib.figure import Figure
-from numpy import ndarray
-import seaborn as sns
 from pyLDAvis import PreparedData
 
 from src.dataset import YouTrackIssueDataset
@@ -28,14 +26,11 @@ def version_counts(dataset: YouTrackIssueDataset) -> Figure:
     sorted_counts = sorted(all_counts, key=lambda x: int(x[0][:4] + x[0][5]))
     versions, counts = zip(*sorted_counts)
     fig = plt.figure(figsize=(20, 5))
-    sns.set_theme()
-    sns.barplot(x=list(versions), y=list(counts))
+    plt.bar(list(versions), list(counts))
     return fig
 
 
-def retrieve_top_topics_from_version(
-    dataset: YouTrackIssueDataset, predictions: ndarray, version: str, top_k: int = 10
-) -> List:
+def retrieve_top_topics_from_version(dataset: YouTrackIssueDataset, predictions, version: str, top_k: int = 10) -> List:
     version_indices = [i for i in range(len(dataset)) if version in dataset[i][1]]
     topic = predictions[version_indices].argmax(-1)
     counts: Counter[int] = Counter(topic)
@@ -47,7 +42,7 @@ def get_top_topic_words(topic_id: int, vis_pd: PreparedData, top_k: int = 10) ->
     return vis_pd.topic_info[topic_mask].sort_values(by="Freq", ascending=False).Term[:top_k].tolist()
 
 
-def show_version(version: str, dataset: YouTrackIssueDataset, prediction: ndarray, vis_pd: PreparedData):
+def show_version(version: str, dataset: YouTrackIssueDataset, prediction, vis_pd: PreparedData):
     top_topics = retrieve_top_topics_from_version(dataset, prediction, version)
     top_topics_words = "\n".join(
         [
@@ -64,8 +59,7 @@ def main():
     with open(PREDICTION_DATA, "rb") as f:
         prediction = pickle.load(f)
     with open(LDA_VIS_DATA, "rb") as f:
-        lda_vis_data = pickle.load(f)
-    vis_pd = lda_vis.prepare(**lda_vis_data)
+        vis_pd = pickle.load(f)
 
     st.set_page_config(layout="wide")
     st.title("Topic modeling on YouTrack issues from PyCharm users.")
