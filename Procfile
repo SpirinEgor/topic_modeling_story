@@ -1,1 +1,1 @@
-worker: streamlit run src/streamlit_app.py
+web: sh heroku_setup.sh && streamlit run src/streamlit_app.py
